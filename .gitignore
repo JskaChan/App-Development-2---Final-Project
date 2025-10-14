@@ -28,7 +28,6 @@ yarn-error.log
 
 # === DATABASE FILES ===
 *.sql
-!ecom/*.sql  # Allow your ecom SQL folder (you want to keep those dumps)
 
 # === OS FILES ===
 .DS_Store
