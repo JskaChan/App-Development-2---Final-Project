@@ -1,22 +1,20 @@
 <div class="header">
-  <table>
+  <table class="header-table">
     <tr>
-      <td>
+      <td class="logo-cell">
         <a [routerLink]="['/']">
-          <img src="assets/GMART.png" alt="GMART Logo" />
+          <img src="assets/gia logo.png" alt="GIA Logo" class="logo-img" />
         </a>
       </td>
     </tr>
+  </table>
+</div>
 
-    <tr>
-      <td class="phrase" colspan="6">
-        Where you enjoy the most shopping experience
-      </td>
-    </tr>
-
+<div class="nav-bar">
+  <table>
     <tr>
       <td *ngFor="let menu of menus" class="col-md-2">
-        <button class="button1" [routerLink]="['/', menu.routerPath]">
+        <button class="button1" [routerLink]="[menu.routerPath]">
           {{ menu.name }}
         </button>
       </td>

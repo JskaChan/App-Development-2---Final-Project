@@ -10,7 +10,7 @@ import { Menu } from '../model/menu';
   imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [MenuService] // ✅ add this line
+  providers: [MenuService] 
 })
 export class HeaderComponent implements OnInit {
   public menus: Menu[] = [];
