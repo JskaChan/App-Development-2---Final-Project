@@ -138,4 +138,57 @@ export class MainBodyComponent implements OnInit  {
       console.log("ngOnInit called");
       this.productService.getData().subscribe(data => {this.productsCategory = data; });
     }
+     ngAfterViewInit(): void {
+    try {
+      const slides = document.querySelectorAll(".slide");
+      const nextBtn = document.querySelector(".next");
+      const prevBtn = document.querySelector(".prev");
+
+      if (!slides.length) throw new Error("No slides found in .carousel");
+      if (!nextBtn || !prevBtn) throw new Error("Carousel controls not found");
+
+      let index = 0;
+      let timer: any;
+
+      function showSlide(n: number) {
+        slides.forEach((slide, i) => {
+          (slide as HTMLElement).classList.toggle("active", i === n);
+        });
+      }
+
+      function nextSlide() {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+      }
+
+      function prevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(nextSlide, 6000);
+      }
+
+      nextBtn?.addEventListener("click", () => {
+        console.log("➡️ Next clicked");
+        nextSlide();
+        resetTimer();
+      });
+
+      prevBtn?.addEventListener("click", () => {
+        console.log("⬅️ Prev clicked");
+        prevSlide();
+        resetTimer();
+      });
+
+      showSlide(index);
+      timer = setInterval(nextSlide, 10000);
+
+      console.log("Carousel initialized successfully");
+    } catch (err: any) {
+      console.error("Carousel initialization failed:", err.message);
+    }
+  }
   }

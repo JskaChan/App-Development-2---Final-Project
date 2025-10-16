@@ -51,6 +51,7 @@
 
 .button1:hover {
   transform: translateY(-1px);
+  color: rgb(195, 195, 195);
 }
 
 .button1:active {

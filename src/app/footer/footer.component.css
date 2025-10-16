@@ -1,7 +1,7 @@
 .footer {
   background-color: black;           
   color: whitesmoke;                          
-  padding: 80px 10%;
+  padding: 50px 10%;
   font-family: "Didot", "Playfair Display", serif;
   letter-spacing: 0.3px;
 }
@@ -9,7 +9,7 @@
 .footer-container {
   display: grid;
   grid-template-columns: 1fr 1fr; 
-  gap: 60px;
+  gap: 80px;
   max-width: 1000px;          
   margin: 0 auto;               
   align-items: start;             
