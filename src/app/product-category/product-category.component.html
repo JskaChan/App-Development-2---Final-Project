@@ -1,32 +1,39 @@
+<div class="border">
+</div>
+
 <div class="container-fluid hero-contact p-0 m-0">
-  <h2>eCommerce</h2>
-      <div *ngFor="let category of productsCategory" class="col-md-4 newspaper">
-          <div>{{category.categoryName}}</div>
-            <div  class="box" *ngFor="let prod of category.products" >
-            <img class="productimg" src="../assets/products/{{prod.imageFile}}.jpg"/>
-            <p class="productname">{{prod.name}}</p>
-            <p class="productcategory">{{prod.description}}</p> 
-            <p class="productcategory">{{prod.categoryName}}</p> 
-            <p class="productcategory">{{prod.unitOfMeasure}}</p> 
-            <p class="productcategory">{{prod.price}}</p>        
-            <img  routerLink="/cart" class="cart" src="../assets/icons/shoppingcart.svg" />
-            </div>
+  <h2>The AW10 Collection: 
+      A Concrete Serenity
+  </h2>
+
+  <div *ngFor="let category of productsCategory" class="col-md-4 newspaper">
+    <!-- <h3>{{ category.categoryName }}</h3> -->
+
+    <div class="box" *ngFor="let prod of category.products">
+      <img
+        class="productimg"
+        [src]="'assets/products/' + prod.imageFile + '.png'"
+        [alt]="prod.name"
+      />
+
+      <div class="details">
+        <p class="productname">'{{ prod.name }}'</p>
+        <p class="productcategory">{{ prod.description }}</p>
+        <!-- <p class="productcategory">{{ prod.categoryName }}</p>
+        <p class="productcategory">{{ prod.unitOfMeasure }}</p> -->
+        <p class="price">{{ prod.price }}</p>
       </div>
-<!--    <table class="table">
-      <div *ngFor="let category of productsCategory" class="col-md-4">
-        <tr >
-          <h2>{{category.categoryName}}</h2>
-        </tr >
-        <tr >
-            <td *ngFor="let prod of category.products" class="col-md-4">
-            <img class="productimg" src="../assets/products/{{prod.imageFile}}.jpg"/>
-            <p class="productname">{{prod.name}}</p>
-            <p class="productcategory">{{prod.description}}</p> 
-            <p class="productcategory">{{prod.categoryName}}</p> 
-            <p class="productcategory">{{prod.unitOfMeasure}}</p> 
-            <p class="productcategory">{{prod.price}}</p>        
-            <img  routerLink="/cart" class="cart" src="../assets/icons/shoppingcart.svg" />
-          </td>
-        </tr>
-      </div>
-    </table>-->
+
+     <button 
+        class="cart-btn" 
+        type="button"
+        [routerLink]="['/cart']">
+        Add to Cart
+    </button>
+
+
+    </div>
+  </div>
+</div>
+<div class="border">
+</div>

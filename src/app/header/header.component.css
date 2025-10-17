@@ -65,12 +65,22 @@
   }
 
   .button1 {
-    font-size: 14px;
-    padding: 8px 16px;
+    width: 80%;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 10px;
+
   }
 
   .nav-bar {
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    padding: 13px 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
 }

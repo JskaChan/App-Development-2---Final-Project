@@ -1,4 +1,3 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { MainBodyComponent } from './main-body/main-body.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
