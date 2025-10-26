@@ -1,0 +1,105 @@
+.lookbook-container {
+  padding: 80px 8%;
+  background-color: white;
+  text-align: center;
+}
+
+.lookbook-heading {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.lookbook-subtitle {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: rgb(56, 56, 56);
+  text-transform: uppercase;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 70px;
+}
+
+.editorial-layout {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-auto-rows: 200px;
+  gap: 18px;
+  position: relative;
+}
+
+.editorial-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.editorial-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.editorial-item:hover img {
+  transform: scale(1.05);
+}
+
+.editorial-item:nth-child(1) { grid-column: span 3; grid-row: span 2; }
+.editorial-item:nth-child(2) { grid-column: span 3; grid-row: span 4; }
+.editorial-item:nth-child(3) { grid-column: span 2; grid-row: span 2; }
+.editorial-item:nth-child(4) { grid-column: span 2; grid-row: span 2; }
+.editorial-item:nth-child(5) { grid-column: span 1; grid-row: span 2; }
+.editorial-item:nth-child(6) { grid-column: span 2; grid-row: span 2; }
+.editorial-item:nth-child(7) { grid-column: span 3; grid-row: span 3; }
+.editorial-item:nth-child(8) { grid-column: span 3; grid-row: span 2; }
+.editorial-item:nth-child(9) { grid-column: span 2; grid-row: span 2; }
+.editorial-item:nth-child(10) { grid-column: span 5; grid-row: span 1; }
+
+.caption {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  opacity: 0;
+  display: flex;
+  justify-content:  flex-end;
+  align-items:  flex-end;
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  padding: 10px 20px;
+  transition: opacity 0.3s ease;
+}
+
+.caption.active {
+  opacity: 1;
+}
+
+.caption p {
+  max-width: 80%;
+  line-height: 1.5;
+  text-align: right;
+  font-size: 14px;
+  font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .editorial-layout {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .editorial-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .caption {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+}

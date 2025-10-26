@@ -29,13 +29,23 @@ export class MenuService extends BaseHttpService {
     );
   }
 
+  // private getFallbackMenus(): Menu[] {
+  //   return [
+  //     { id: 1, name: 'Home', description: '', routerPath: '', categoryName: '' },
+  //     { id: 2, name: 'Products', description: '', routerPath: 'product', categoryName: '' },
+  //     { id: 3, name: 'Customer', description: '', routerPath: 'customer', categoryName: '' },
+  //     { id: 4, name: 'Cart', description: '', routerPath: 'cart', categoryName: '' },
+  //     { id: 5, name: 'Lookbook', description: '', routerPath: 'gallery', categoryName: '' },
+  //     { id: 6, name: 'Contact Us', description: '', routerPath: 'contact', categoryName: '' }
+  //   ];
+  // }
   private getFallbackMenus(): Menu[] {
     return [
       { id: 1, name: 'Home', description: '', routerPath: '', categoryName: '' },
-      { id: 2, name: 'Products', description: '', routerPath: 'product', categoryName: '' },
-      { id: 3, name: 'Customer', description: '', routerPath: 'customer', categoryName: '' },
+      { id: 2, name: 'Lookbook', description: '', routerPath: 'gallery', categoryName: '' },
+      { id: 3, name: 'Products', description: '', routerPath: 'product', categoryName: '' },
       { id: 4, name: 'Cart', description: '', routerPath: 'cart', categoryName: '' },
-      { id: 5, name: 'Orders', description: '', routerPath: 'order', categoryName: '' },
+      { id: 5, name: 'Customer', description: '', routerPath: 'customer', categoryName: '' },
       { id: 6, name: 'Contact Us', description: '', routerPath: 'contact', categoryName: '' }
     ];
   }

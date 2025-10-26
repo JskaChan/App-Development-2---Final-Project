@@ -1,15 +1,12 @@
-<div class="border">
-</div>
-
 <div class="container-fluid hero-contact p-0 m-0">
-  <h2>The AW10 Collection: 
-      A Concrete Serenity
-  </h2>
+  <h2>Catalogue</h2>
 
   <div *ngFor="let category of productsCategory" class="col-md-4 newspaper">
-    <!-- <h3>{{ category.categoryName }}</h3> -->
-
-    <div class="box" *ngFor="let prod of category.products">
+    <div
+      class="box"
+      *ngFor="let prod of category.products"
+      (click)="openProductModal(prod)"
+    >
       <img
         class="productimg"
         [src]="'assets/products/' + prod.imageFile + '.png'"
@@ -19,21 +16,65 @@
       <div class="details">
         <p class="productname">'{{ prod.name }}'</p>
         <p class="productcategory">{{ prod.description }}</p>
-        <!-- <p class="productcategory">{{ prod.categoryName }}</p>
-        <p class="productcategory">{{ prod.unitOfMeasure }}</p> -->
         <p class="price">{{ prod.price }}</p>
       </div>
 
-     <button 
-        class="cart-btn" 
+      <!-- <button
+        class="cart-btn"
         type="button"
-        [routerLink]="['/cart']">
+        [routerLink]="['/cart']"
+        (click)="$event.stopPropagation()"
+      >
         Add to Cart
-    </button>
+      </button> -->
 
+      <button
+        class="cart-btn"
+        type="button"
+        (click)="$event.stopPropagation(); openProductModal(prod)"
+      >
+        View
+      </button>
 
     </div>
   </div>
 </div>
-<div class="border">
+
+<div
+  class="modal"
+  [ngClass]="{ open: selectedProduct }"
+  (click)="closeProductModal($event)"
+>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="onCloseClick()">&times;</span>
+    <img
+      #zoomImage
+      class="zoomable"
+      [src]="selectedProduct ? 'assets/products/' + selectedProduct.imageFile + '.png' : ''"
+      [alt]="selectedProduct?.name"
+      (mousemove)="onImageHover($event, zoomImage)"
+      (mouseleave)="resetZoom(zoomImage)"
+      (click)="toggleZoom(zoomImage); $event.stopPropagation()"
+    />
+    <h3 class="modal-title">'{{ selectedProduct?.name }}'</h3>
+    <p class="modal-desc">{{ selectedProduct?.description }}</p>
+    <p class="modal-price">{{ selectedProduct?.price }}</p>
+    
+    <!-- <button
+      class="cart-btn"
+      type="button"
+      (click)="onAddToCart(selectedProduct)"
+    >
+      Add to Cart
+    </button> -->
+
+    <button
+      class="cart-btn"
+      type="button"
+      (click)="selectedProduct && onAddToCart(selectedProduct)"
+    >
+      Add to Cart
+    </button>
+
+  </div>
 </div>

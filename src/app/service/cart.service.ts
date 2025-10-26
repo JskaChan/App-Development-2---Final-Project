@@ -1,13 +1,55 @@
+// import { Injectable } from '@angular/core';
+// import { BaseHttpService } from './base-http.service';
+// import { HttpClient } from '@angular/common/http';
+// import { Observable } from 'rxjs';
+// import { environment } from '../../environments/environment';
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class CartService extends BaseHttpService{
+
+//   constructor(protected override http: HttpClient) { 
+//     // super(http, '/api/cart')
+//     super(http, '/api/orderitem')
+//   }
+
+//   // ✅ Explicit endpoint methods
+//   getByCustomer(customerId: number, status: number): Observable<any> {
+//     return this.http.get(`${environment.apiBaseUrl}/api/orderitem/${customerId}?status=${status}`);
+//   }
+
+//   addItem(item: any): Observable<any> {
+//     return this.http.put(`${environment.apiBaseUrl}/api/orderitem`, item);
+//   }
+
+// }
+
 import { Injectable } from '@angular/core';
-import { BaseHttpService } from './base-http.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CartService extends BaseHttpService{
+export class CartService {
+  private apiUrl = `${environment.apiBaseUrl}/api/orderitem`;
 
-  constructor(protected override http: HttpClient) { 
-    super(http, '/api/cart')
+  constructor(private http: HttpClient) {}
+
+  // Add to cart
+  addToCart(item: any): Observable<any> {
+    return this.http.put(this.apiUrl, item);
+  }
+
+  // Get all items for one customer (status 0 = still in cart)
+  getCart(customerId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${customerId}?status=0`);
+  }
+
+  // Clear or remove an item
+  deleteItem(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Product } from '../model/product';
 import { ProductCategory } from '../model/product-category';
 import { ProductService } from '../service/product.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-product-category',
@@ -11,131 +12,16 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   templateUrl: './product-category.component.html',
   styleUrls: ['./product-category.component.css'],
-  providers: [ProductService],
+  providers: [ProductService, CartService],
 })
 export class ProductCategoryComponent implements OnInit {
   public productsCategory: ProductCategory[] = [];
+  public selectedProduct: Product | null = null;
 
-  constructor(private productService: ProductService) {
-    /*
-    // Sample mock data (kept for reference only)
-    this.productsCategory = [
-      {
-        "categoryName": "Snacks",
-        "products": [
-          {
-            "id": 1,
-            "name": "Alaska",
-            "description": "This is a description of Alaska",
-            "categoryName": "Snack",
-            "unitOfMeasure": "can",
-            "imageFile": "Alaska",
-            "price": "30.00"
-          },
-          {
-            "id": 2,
-            "name": "Cardbury",
-            "description": "This is a description of Cardbury",
-            "categoryName": "Snacks",
-            "unitOfMeasure": "ounce",
-            "imageFile": "cardbury",
-            "price": "10.00"
-          },
-          {
-            "id": 3,
-            "name": "Milo",
-            "description": "This is a description of Milo",
-            "unitOfMeasure": "can",
-            "categoryName": "Snacks",
-            "imageFile": "milo",
-            "price": "120.00"
-          }
-        ]
-      },
-      {
-        "categoryName": "Audio",
-        "products": [
-          {
-            "id": 4,
-            "name": "denonreceiver",
-            "description": "This is a description of Denon receiver",
-            "unitOfMeasure": "piece",
-            "imageFile": "denonreceiver",
-            "categoryName": "Audio",
-            "price": "1420.00"
-          },
-          {
-            "id": 5,
-            "name": "Mango",
-            "description": "This is a description of Mango",
-            "unitOfMeasure": "piece",
-            "imageFile": "mango",
-            "categoryName": "Audio",
-            "price": "0.00"
-          },
-          {
-            "id": 6,
-            "name": "soundbar",
-            "description": "This is a description of the Sound bar",
-            "unitOfMeasure": "piece",
-            "imageFile": "soundbar",
-            "categoryName": "Audio",
-            "price": "30.00"
-          },
-          {
-            "id": 7,
-            "name": "soundbar2",
-            "description": "This is a description of another soundbar",
-            "categoryName": "Audio",
-            "imageFile": "soundbar2",
-            "unitOfMeasure": "piece",
-            "price": "350.00"
-          }
-        ]
-      },
-      {
-        "categoryName": "Dessert",
-        "products": [
-          {
-            "id": 8,
-            "name": "banana",
-            "description": "This is a description of banana",
-            "categoryName": "Dessert",
-            "imageFile": "banana",
-            "unitOfMeasure": "kilo",
-            "price": "20.00"
-          },
-          {
-            "id": 9,
-            "name": "Banana Split",
-            "description": "This is a description of banana split ice cream",
-            "categoryName": "Dessert",
-            "imageFile": "bananasplit",
-            "unitOfMeasure": "serving",
-            "price": "220.00"
-          },
-          {
-            "id": 10,
-            "name": "Leo Milka",
-            "description": "This is a description of Leo Milka",
-            "categoryName": "Dessert",
-            "imageFile": "leomilka",
-            "unitOfMeasure": "grams",
-            "price": "620.00"
-          },
-          {
-            "id": 11,
-            "name": "Strawberry",
-            "description": "This is a description of Strawberry",
-            "categoryName": "Dessert",
-            "imageFile": "strawberry",
-            "unitOfMeasure": "grams",
-            "price": "10.00"
-          }
-        ]
-      }
-    ];
-    */
+
+  constructor(private productService: ProductService, 
+              private cartService: CartService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -144,4 +30,98 @@ export class ProductCategoryComponent implements OnInit {
       this.productsCategory = data;
     });
   }
+
+  addToCart(product: Product): void {
+  const cartItem = {
+    productId: product.id,
+    productName: product.name,
+    productDescription: product.description,
+    productCategoryName: product.categoryName,
+    productUnitOfMeasure: product.unitOfMeasure,
+    productImageFile: product.imageFile,
+    price: parseFloat(product.price),
+    quantity: 1,
+    status: 'Created',
+    customerId: 1 
+  };
+
+  this.cartService.addToCart(cartItem).subscribe({
+    next: (res) => {
+      alert(`${product.name} has been added to your cart.`);
+      this.router.navigate(['/cart']);
+    },
+    error: (err) => {
+      console.error('Error adding to cart', err);
+      alert('Failed to add item. Check backend logs.');
+    }
+  });
+}
+
+unlockScroll(): void {
+  document.body.style.overflow = '';
+}
+
+openProductModal(product: Product): void {
+    this.selectedProduct = product;
+    document.body.style.overflow = 'hidden'; 
+  }
+
+closeProductModal(event?: MouseEvent): void {
+  const target = event?.target as HTMLElement;
+  if (!event || target.classList.contains('modal')) {
+    this.selectedProduct = null;
+    this.unlockScroll();
+  }
+}
+
+onCloseClick(): void {
+  this.selectedProduct = null;
+  this.unlockScroll();
+}
+
+// onAddToCart(product: Product): void {
+//   this.selectedProduct = null;
+//   this.unlockScroll();
+
+//   this.addToCart(product);
+// }
+
+onAddToCart(product?: Product | null): void {
+  if (!product) return;
+  this.selectedProduct = null;
+  this.unlockScroll();
+  this.addToCart(product);
+}
+
+zoomActive = false;
+
+onImageHover(event: MouseEvent, img: HTMLImageElement): void {
+  if (!this.zoomActive) return;
+
+  const rect = img.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width;
+  const y = (event.clientY - rect.top) / rect.height;
+
+  img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+}
+
+toggleZoom(img: HTMLImageElement): void {
+  this.zoomActive = !this.zoomActive;
+  if (this.zoomActive) {
+    img.classList.add('zoomed');
+  } else {
+    img.classList.remove('zoomed');
+    img.style.transformOrigin = 'center center';
+  }
+}
+
+resetZoom(img: HTMLImageElement): void {
+  if (!this.zoomActive) {
+    img.classList.remove('zoomed');
+    img.style.transformOrigin = 'center center';
+  }
+}
+
+
+
 }

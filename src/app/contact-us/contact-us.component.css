@@ -43,7 +43,8 @@
 .contact-header p {
   font-family: "Helvetica Neue", sans-serif;
   font-size: 14px;
-  color: black;
+  color: rgb(56, 56, 56);
+  text-transform: uppercase;
   line-height: 1.6;
 }
 

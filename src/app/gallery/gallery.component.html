@@ -1,1 +1,19 @@
-<p>gallery works!</p>
+<div class="lookbook-container">
+  <h2 class="lookbook-heading">The AW10 Lookbook: <br>Concrete Serenity</h2>
+  <p class="lookbook-subtitle">
+    A visual narrative of modern silhouettes — where sharp lines meet soft rebellion.
+  </p>
+
+  <div class="editorial-layout">
+    <div
+      class="editorial-item"
+      *ngFor="let look of looks"
+      (click)="toggleCaption(look)"
+    >
+      <img [src]="look.image" [alt]="look.caption" />
+      <div class="caption" [class.active]="look.showCaption">
+        <p>{{ look.caption }}</p>
+      </div>
+    </div>
+  </div>
+</div>
