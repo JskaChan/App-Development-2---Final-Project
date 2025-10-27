@@ -19,7 +19,8 @@ export class GalleryComponent {
     { image: 'assets/images/5.webp', caption: '— in Chalk Armor', showCaption: false },
     { image: 'assets/images/2.webp', caption: '— in Quicksilver', showCaption: false },
     { image: 'assets/images/6.webp', caption: '— in Ivory Static', showCaption: false },
-    { image: 'assets/images/black.png', caption: '', showCaption: false }
+    { image: 'assets/images/black.png', caption: '', showCaption: false },
+    { image: 'assets/icon.png', caption: '', showCaption: false }
   ];
 
   toggleCaption(look: any) {

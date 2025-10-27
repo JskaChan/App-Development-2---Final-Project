@@ -31,7 +31,12 @@ export class ProductCategoryComponent implements OnInit {
     });
   }
 
-  addToCart(product: Product): void {
+  addToCart(product: Product): void {   
+       
+  const priceValue = typeof product.price === 'string'
+    ? parseFloat(product.price.replace(/[₱,]/g, '')) 
+    : product.price;
+
   const cartItem = {
     productId: product.id,
     productName: product.name,
@@ -39,7 +44,7 @@ export class ProductCategoryComponent implements OnInit {
     productCategoryName: product.categoryName,
     productUnitOfMeasure: product.unitOfMeasure,
     productImageFile: product.imageFile,
-    price: parseFloat(product.price),
+    price: priceValue,
     quantity: 1,
     status: 'Created',
     customerId: 1 
@@ -78,13 +83,6 @@ onCloseClick(): void {
   this.selectedProduct = null;
   this.unlockScroll();
 }
-
-// onAddToCart(product: Product): void {
-//   this.selectedProduct = null;
-//   this.unlockScroll();
-
-//   this.addToCart(product);
-// }
 
 onAddToCart(product?: Product | null): void {
   if (!product) return;

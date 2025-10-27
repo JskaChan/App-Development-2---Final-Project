@@ -3,7 +3,17 @@
   margin: 40px auto;
   background: #fff;
   padding: 30px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+}
+
+h2 {
+  font-family: "Didot", "Playfair Display", serif;
+  font-size: 2.5rem;
+  color: #111;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .cart-table {
@@ -13,8 +23,11 @@
 }
 
 .cart-table th, .cart-table td {
+  font-family: "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  font-size: 15px;
   text-align: center;
-  padding: 12px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -24,11 +37,13 @@
   border: none;
   background-color: #000;
   color: #fff;
-  border-radius: 3px;
+  border-radius: 10px;
+  margin: 0 7px;
 }
 
 .cart-table button:hover {
   background-color: #444;
+  color: white;
 }
 
 .remove {
@@ -36,49 +51,260 @@
 }
 
 .cart-summary {
+  font-family: "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  font-size: 15px;
   text-align: right;
-  font-size: 1.1em;
+}
+
+.cart-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .checkout {
-  background-color: #000;
-  color: #fff;
-  padding: 10px 25px;
-  border: none;
-  margin-top: 10px;
-  border-radius: 5px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  color: #111;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 20px;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .checkout:hover {
   background-color: #444;
+  color: white;
 }
 
 .clear {
-  background-color: #666;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  color: #111;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 18px;
   margin-left: 10px;
-  border-radius: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.clear:hover {
+  background-color: #444;
+  color: white;
 }
 
 .empty-cart {
   text-align: center;
   margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .empty-cart p {
+  font-family: "Didot", "Playfair Display", serif;
+  margin-bottom: 20px;
   font-size: 1.2em;
   color: #555;
 }
 
 .return {
-  text-decoration: none;
+  background: black;
+  border: 1px solid rgba(0, 0, 0, 0.25);
   color: white;
-  background-color: #000;
-  padding: 8px 15px;
-  border-radius: 4px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+  letter-spacing: 1px;
   display: inline-block;
-  margin-top: 10px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
+
+.return:hover {
+  background-color: #444;
+}
+
+.checkout-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(8, 8, 8, 0.856);
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.checkout-modal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.25;
+  filter: blur(3px);
+  z-index: 0;
+}
+
+.checkout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 5px;
+  padding: 25px 40px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease forwards;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 20px auto; 
+  background: transparent;
+}
+
+.modal-title {
+  font-family: "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.modal-desc {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #444;
+  font-size: 14px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.receipt-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  color: #111;
+}
+
+.receipt-table th,
+.receipt-table td {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  padding: 10px;
+  text-align: center;
+}
+
+.receipt-table th {
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+}
+
+.receipt-table td {
+  border-bottom: 1px solid #eee;
+}
+
+p {
+  margin: 5px 0;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: rgb(19, 19, 19);
+}
+
+.modal-price {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #000;
+  font-size: 1.05rem;
+  margin: 0.8rem 0 20px 0;
+}
+
+button.confirm {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  color: #111;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 15px;
+  display: block;
+  margin: 15px auto 0 auto; 
+}
+
+button.confirm:hover {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  border-color: rgba(0, 0, 0, 0.85);
+  transform: translateY(-2px);
+}
+
+button.confirm:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+.close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+  background: transparent;
+  border: none;
+}
+
+.close:hover {
+  color: #000;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+

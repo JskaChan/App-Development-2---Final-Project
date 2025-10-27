@@ -38,18 +38,21 @@ export class CartService {
 
   constructor(private http: HttpClient) {}
 
-  // Add to cart
   addToCart(item: any): Observable<any> {
     return this.http.put(this.apiUrl, item);
   }
 
-  // Get all items for one customer (status 0 = still in cart)
   getCart(customerId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${customerId}?status=0`);
   }
 
-  // Clear or remove an item
   deleteItem(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  updateCartItem(item: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${item.id}`, item);
+
+  }
+
 }

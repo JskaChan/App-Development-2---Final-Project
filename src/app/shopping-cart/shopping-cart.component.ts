@@ -1,76 +1,7 @@
-// // import { Component } from '@angular/core';
-
-// // @Component({
-// //   selector: 'app-shopping-cart',
-// //   templateUrl: './shopping-cart.component.html',
-// //   styleUrls: ['./shopping-cart.component.css']
-// // })
-// // export class ShoppingCartComponent {
-
-// // }
-
-// import { Component, OnInit } from '@angular/core';
-// import { CommonModule, DecimalPipe } from '@angular/common';
-// import { CartService } from '../service/cart.service';
-
-// @Component({
-//   selector: 'app-shopping-cart',
-//   standalone: true,
-//   imports: [CommonModule, DecimalPipe],
-//   templateUrl: './shopping-cart.component.html',
-//   styleUrls: ['./shopping-cart.component.css']
-// })
-// export class ShoppingCartComponent implements OnInit {
-
-//   cart: any[] = [];
-//   shippingFee: number = 150;
-//   total: number = 0;
-
-//   ngOnInit(): void {
-//     this.loadCart();
-//     this.calculateTotal();
-//   }
-
-//   loadCart(): void {
-//     const storedCart = localStorage.getItem('cart');
-//     this.cart = storedCart ? JSON.parse(storedCart) : [];
-//   }
-
-//   saveCart(): void {
-//     localStorage.setItem('cart', JSON.stringify(this.cart));
-//     this.calculateTotal();
-//   }
-
-//   increaseQuantity(index: number): void {
-//     this.cart[index].quantity++;
-//     this.saveCart();
-//   }
-
-//   decreaseQuantity(index: number): void {
-//     if (this.cart[index].quantity > 1) {
-//       this.cart[index].quantity--;
-//       this.saveCart();
-//     }
-//   }
-
-//   removeItem(index: number): void {
-//     this.cart.splice(index, 1);
-//     this.saveCart();
-//   }
-
-//   calculateTotal(): void {
-//     const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-//     this.total = subtotal + (this.cart.length > 0 ? this.shippingFee : 0);
-//   }
-
-//   clearCart(): void {
-//     this.cart = [];
-//     this.saveCart();
-//   }
-// }
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { CartService } from '../service/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -82,10 +13,10 @@ import { CartService } from '../service/cart.service';
 export class ShoppingCartComponent implements OnInit {
   cart: any[] = [];
   total: number = 0;
-  shippingFee: number = 100;
-  customerId = 1; // temporary hardcoded until login exists
+  shippingFee: number = 150;
+  customerId = 1; 
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router:Router) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -109,14 +40,12 @@ export class ShoppingCartComponent implements OnInit {
     this.total = subtotal + (this.cart.length > 0 ? this.shippingFee : 0);
   }
 
-  // ✅ increase quantity
   increaseQuantity(index: number): void {
     const item = this.cart[index];
     item.quantity++;
     this.updateItem(item);
   }
 
-  // ✅ decrease quantity
   decreaseQuantity(index: number): void {
     const item = this.cart[index];
     if (item.quantity > 1) {
@@ -125,7 +54,6 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
-  // ✅ remove single item
   removeItem(index: number): void {
     const item = this.cart[index];
     this.cartService.deleteItem(item.id).subscribe({
@@ -137,22 +65,49 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  // ✅ clear entire cart (loop through all items)
   clearCart(): void {
     const deleteCalls = this.cart.map((item) =>
       this.cartService.deleteItem(item.id)
     );
     Promise.all(deleteCalls.map((call) => call.toPromise())).then(() => {
-      this.cart = [];
-      this.calculateTotal();
+        this.cart = []; 
+        this.calculateTotal();
     });
   }
 
-  // helper: update quantity or price
-  private updateItem(item: any): void {
-    this.cartService.addToCart(item).subscribe({
-      next: () => this.calculateTotal(),
-      error: (err) => console.error('Error updating item', err),
-    });
+private updateItem(item: any): void {
+  console.log('Updating item:', item);
+  this.cartService.updateCartItem(item).subscribe({
+    next: () => this.loadCart(), 
+    error: (err) => console.error('Error updating item', err),
+  });
+}
+
+  goToProducts() {
+    this.router.navigate(['/product']);
   }
+
+  showReceipt: boolean = false;
+  showThankYou = false;
+  purchaseDate: Date = new Date();
+
+  checkout(): void {
+    this.purchaseDate = new Date(); 
+    this.showReceipt = true;
+  }
+
+  closeReceipt(): void {
+    this.showReceipt = false;
+  }
+
+  confirmPurchase(): void {
+    this.clearCart();     
+    this.showReceipt = false;
+    this.showThankYou = true; 
+  }
+
+  closeThankYou() {
+    this.showThankYou = false;
+  }
+
 }

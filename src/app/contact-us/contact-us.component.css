@@ -59,9 +59,9 @@
 
 .contact-form,
 .contact-info {
-  width: 100%;
+  width: 60%;
   background: rgba(255, 255, 255, 0.85);
-  padding: 30px 7%;
+  padding: 40px 8%;
   border-radius: 14px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
 }
